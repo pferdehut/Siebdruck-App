@@ -91,9 +91,17 @@ export default async function LocationsManagementPage() {
                     id="name"
                     name="name"
                     required
-                    placeholder="z.B. dynamo, vor Ort, Atelier"
+                    placeholder="z.B. Dynamo, vor Ort, Atelier"
                     className="border-2 border-foreground font-medium"
                   />
+                  <Label htmlFor="address" className="font-bold">
+                    Adresse
+                  </Label>
+                  <Input 
+                    id="location_address"
+                    name="location_address"
+                    placeholder="z.B. Musterstrasse 0, 0000 Ort"
+                    className="border-2 border-foreground font-medium"
                 </div>
 
                 <Button
