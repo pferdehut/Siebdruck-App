@@ -1,8 +1,12 @@
 import { ContactForm } from "@/components/contact-form"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { createClient } from "@/lib/supabase/server"
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const supabase = await createClient()
+  const { data: locations } = await supabase.from("locations").select("*").order("name", { ascending: true })
+
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -45,36 +49,57 @@ export default function ContactPage() {
                 <CardDescription>Hier finden unsere Workshops statt</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                    />
-                  </svg>
-                  <div>
-                    <p className="font-medium">Addressen</p>
-                    <p className="text-sm text-muted-foreground">
-                      Jugendkulturhaus Dynamo
-                      <br />
-                      Wasserwerkstrasse 15
-                      <br />
-                      Zürich
-                      <br />
-                      <br />
-                      oder bei euch vor Ort
-                    </p>
+                {locations && locations.length > 0 ? (
+                  locations.map((location) => (
+                    <div key={location.id} className="flex items-start gap-3">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                        />
+                      </svg>
+                      <div>
+                        <p className="font-medium">{location.name}</p>
+                        {location.location_address && (
+                          <p className="text-sm text-muted-foreground whitespace-pre-line">
+                            {location.location_address}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex items-start gap-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                      />
+                    </svg>
+                    <div>
+                      <p className="font-medium">Standorte</p>
+                      <p className="text-sm text-muted-foreground">Noch keine Standorte verfügbar</p>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div className="flex items-start gap-3">
                   <svg
