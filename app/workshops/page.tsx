@@ -11,7 +11,20 @@ export const revalidate = 60
 export default async function WorkshopsPage() {
   const supabase = await createClient()
 
-  const { data: workshops, error } = await supabase.from("workshops").select("*").order("name", { ascending: true })
+  const { data: workshops, error } = await supabase
+    .from("workshops")
+    .select(
+      `
+      *,
+      workshop_locations (
+        locations (
+          id,
+          name
+        )
+      )
+    `,
+    )
+    .order("name", { ascending: true })
 
   if (error) {
     return (

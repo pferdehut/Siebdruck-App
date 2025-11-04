@@ -7,11 +7,16 @@ interface Workshop {
   id: string
   name: string
   description: string
-  location: string
   duration_from: string
   duration_to: string
   max_participants: number
   price: number
+  workshop_locations?: Array<{
+    locations: {
+      id: string
+      name: string
+    }
+  }>
 }
 
 interface WorkshopCardProps {
@@ -24,17 +29,24 @@ const locationColors = {
 }
 
 export function WorkshopCard({ workshop }: WorkshopCardProps) {
+  const locations = workshop.workshop_locations?.map((wl) => wl.locations.name) || []
+
   return (
     <Card className="group relative overflow-hidden rounded-3xl border-2 transition-all hover:scale-105 hover:shadow-2xl">
       <div className="absolute -top-12 -right-12 h-32 w-32 rounded-full bg-primary/10 blur-2xl transition-all group-hover:bg-primary/20" />
 
       <CardHeader className="relative">
         <div className="flex items-center justify-between gap-2 mb-2">
-          <Badge
-            className={`rounded-full border-2 ${locationColors[workshop.location as keyof typeof locationColors] || ""}`}
-          >
-            {workshop.location}
-          </Badge>
+          <div className="flex flex-wrap gap-2">
+            {locations.map((location) => (
+              <Badge
+                key={location}
+                className={`rounded-full border-2 ${locationColors[location as keyof typeof locationColors] || ""}`}
+              >
+                {location}
+              </Badge>
+            ))}
+          </div>
           <span className="text-sm font-medium text-muted-foreground">
             {workshop.duration_from} - {workshop.duration_to}
           </span>
