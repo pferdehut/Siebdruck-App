@@ -36,7 +36,7 @@ export default function ImpressionsPage() {
       alt: "pain",
       category: "Projekte",
       size: "small",
-    }
+    },
     {
       id: 6,
       src: "/ceramic-3d-print-workshop-river.jpg",
