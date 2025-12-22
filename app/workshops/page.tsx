@@ -3,44 +3,57 @@ import { WorkshopCard } from "@/components/workshop-card"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 
 export const revalidate = 60
 
 export default async function WorkshopsPage() {
   const supabase = await createClient()
 
-  const { data: workshops, error } = await supabase
-    .from("workshops")
-    .select(
-      `
-      *,
-      workshop_locations (
-        locations (
-          id,
-          name
-        )
-      )
-    `,
-    )
-    .order("name", { ascending: true })
+  const { data: workshops, error } = await supabase.from("workshops").select("*").order("name", { ascending: true })
 
   if (error) {
+    // Check if it's a connection error (521, 502, 503, etc.)
+    const isConnectionError =
+      error.message.includes("fetch") ||
+      error.message.includes("FetchError") ||
+      error.message.includes("521") ||
+      error.message.includes("502") ||
+      error.message.includes("503")
+
     return (
       <div className="min-h-screen px-6 py-16">
         <div className="mx-auto max-w-3xl">
           <Alert variant="destructive">
-            <AlertTitle>Datenbankfehler</AlertTitle>
-            <AlertDescription className="mt-2">
-              <p className="mb-4">
-                {error.message.includes("relation") || error.message.includes("does not exist")
-                  ? "Die Datenbanktabellen wurden noch nicht eingerichtet. Bitte führe die SQL-Skripte aus, um die Datenbank zu initialisieren."
-                  : `Fehler beim Laden der Workshops: ${error.message}`}
-              </p>
-              <Button asChild variant="outline">
-                <Link href="/setup">Zu den Setup-Anweisungen</Link>
-              </Button>
+            <AlertTitle>{isConnectionError ? "Datenbankverbindung nicht verfügbar" : "Datenbankfehler"}</AlertTitle>
+            <AlertDescription className="mt-2 space-y-4">
+              {isConnectionError ? (
+                <>
+                  <p>Die Datenbank ist momentan nicht erreichbar. Dies kann folgende Gründe haben:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li>Das Supabase-Projekt wurde pausiert (bei kostenlosen Projekten nach 7 Tagen Inaktivität)</li>
+                    <li>Temporäre Wartungsarbeiten</li>
+                    <li>Netzwerkprobleme</li>
+                  </ul>
+                  <p className="font-semibold mt-4">
+                    Bitte gehe zu deinem{" "}
+                    <a
+                      href="https://supabase.com/dashboard"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline"
+                    >
+                      Supabase Dashboard
+                    </a>{" "}
+                    und stelle das Projekt wieder her.
+                  </p>
+                </>
+              ) : (
+                <p>
+                  {error.message.includes("relation") || error.message.includes("does not exist")
+                    ? "Die Datenbanktabellen wurden noch nicht eingerichtet. Bitte führe die SQL-Skripte aus, um die Datenbank zu initialisieren."
+                    : `Fehler beim Laden der Workshops: ${error.message}`}
+                </p>
+              )}
             </AlertDescription>
           </Alert>
         </div>

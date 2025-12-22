@@ -33,7 +33,6 @@ async function addLocation(formData: FormData) {
   })
 
   if (error) {
-    console.error("[v0] Error adding location:", error)
     throw new Error(`Failed to add location: ${error.message}`)
   }
 
@@ -59,7 +58,6 @@ async function updateLocation(formData: FormData) {
     .eq("id", id)
 
   if (error) {
-    console.error("[v0] Error updating location:", error)
     throw new Error(`Failed to update location: ${error.message}`)
   }
 
@@ -77,7 +75,6 @@ async function deleteLocation(formData: FormData) {
   const { error } = await supabase.from("locations").delete().eq("id", id)
 
   if (error) {
-    console.error("[v0] Error deleting location:", error)
     throw new Error(`Failed to delete location: ${error.message}`)
   }
 
@@ -142,8 +139,8 @@ export default async function LocationsManagementPage() {
                   <Textarea
                     id="location_address"
                     name="location_address"
-                    placeholder="z.B. Wasserwerkstrasse 15, 8006 Zürich"
-                    className="border-2 border-foreground font-medium min-h-[80px]"
+                    placeholder="z.B. Musterstrasse 0, 0000 Ort"
+                    className="border-2 border-foreground font-medium"
                   />
                 </div>
 

@@ -25,19 +25,6 @@ export const metadata: Metadata = {
   title: "Siebdruck App",
   description: "Buche unsere Druckworkshops und beherrsche die Technik",
   generator: "v0.app",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://siebdruck-app.vercel.app"),
-  openGraph: {
-    title: "Siebdruck App",
-    description: "Buche unsere Druckworkshops und beherrsche die Technik",
-    type: "website",
-    locale: "de_DE",
-    siteName: "Siebdruck App",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Siebdruck App",
-    description: "Buche unsere Druckworkshops und beherrsche die Technik",
-  },
 }
 
 export default function RootLayout({
