@@ -96,7 +96,8 @@
 }
 
 @theme inline {
-  --font-display: "Blueberry", sans-serif;
+  /* Updated font-display to use Blueberry first */
+  --font-display: "Blueberry", "Impact", "Arial Black", sans-serif;
   --font-body: "Inter", "Inter Fallback", sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback", monospace;
   --font-sans: var(--font-body);
