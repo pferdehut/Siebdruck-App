@@ -66,13 +66,11 @@ export default async function WorkshopsPage() {
         <div className="col-span-12 md:col-span-5 box box-blue min-h-[350px] flex flex-col justify-center">
           <div className="text-xs font-black mb-3 opacity-70">WORKSHOPS</div>
           <h1 className="text-7xl md:text-9xl font-display font-black leading-none">
-            WAS
+            Was
             <br />
-            WIR
+            wir
             <br />
-            ANBIE
-            <br />
-            TEN
+            anbieten
           </h1>
         </div>
 

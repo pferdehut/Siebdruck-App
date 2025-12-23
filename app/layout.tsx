@@ -1,24 +1,19 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Honk, Inter, Geist_Mono } from "next/font/google"
+import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Navigation } from "@/components/navigation"
 import "./globals.css"
+import Blueberry from "next/font/local"
 
-const honk = Honk({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-display",
+const blueberry = Blueberry({
+  src: "./fonts/BlueberryTRIAL-Regular.otf",
+  variable: "--font-display"
 })
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
-})
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
 })
 
 export const metadata: Metadata = {
@@ -34,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${honk.variable} ${inter.variable} ${geistMono.variable} font-body antialiased break-words`}>
+      <body className={`${blueberry.variable} ${inter.variable} font-body antialiased break-words`}>
         <Navigation />
         {children}
         <Analytics />

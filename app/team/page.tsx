@@ -42,11 +42,11 @@ export default async function TeamPage() {
         <div className="col-span-6 md:col-span-4 box box-coral min-h-[400px] flex flex-col justify-center">
           <div className="text-xs font-black mb-3 opacity-70">TEAM</div>
           <h1 className="text-7xl md:text-9xl font-display font-black leading-none">
-            DAS
+            Das
             <br />
-            GANZE
+            ganze
             <br />
-            TEAM
+            Team
           </h1>
         </div>
 

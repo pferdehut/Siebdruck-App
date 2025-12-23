@@ -96,7 +96,7 @@
 }
 
 @theme inline {
-  --font-display: "Honk", "Honk Fallback", sans-serif;
+  --font-display: "Blueberry", sans-serif;
   --font-body: "Inter", "Inter Fallback", sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback", monospace;
   --font-sans: var(--font-body);
@@ -171,7 +171,6 @@
     font-weight: 900;
     line-height: 0.85;
     letter-spacing: -0.04em;
-    text-transform: uppercase;
   }
 
   h1 {
