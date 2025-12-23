@@ -1,16 +1,11 @@
 import type React from "react"
 import type { Metadata } from "next"
-import localFont from "next/font/local"
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Navigation } from "@/components/navigation"
 import "./globals.css"
 
-const blueberry = localFont({
-  src: "./fonts/BlueberryTRIAL-Regular.otf",
-  variable: "--font-display",
-  display: "swap",
-})
+// Using @font-face in globals.css instead for more reliable local font loading
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${blueberry.variable} ${inter.variable} font-body antialiased break-words`}>
+      <body className={`${inter.variable} font-body antialiased break-words`}>
         <Navigation />
         {children}
         <Analytics />
