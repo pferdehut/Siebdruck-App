@@ -19,22 +19,16 @@ export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="text-xl font-bold">
-          <img 
-            src="/bleedproof.svg.svg"
-          />
-        </Link>
-
-        <ul className="hidden md:flex items-center gap-6">
+    <header className="fixed top-0 right-0 z-50 p-4 md:p-6">
+      <nav className="flex items-center justify-end gap-4">
+        <ul className="hidden md:flex items-center gap-1 bg-background/95 backdrop-blur border-4 border-foreground px-4 py-2">
           {navItems.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  pathname === item.href ? "text-foreground" : "text-muted-foreground",
+                  "px-4 py-2 text-sm font-bold uppercase transition-colors hover:bg-primary",
+                  pathname === item.href ? "bg-foreground text-background" : "text-foreground",
                 )}
               >
                 {item.label}
@@ -44,7 +38,7 @@ export function Navigation() {
         </ul>
 
         <button
-          className="md:hidden p-2 hover:bg-accent rounded-lg transition-colors"
+          className="md:hidden p-3 bg-background/95 backdrop-blur border-4 border-foreground hover:bg-primary transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -53,16 +47,16 @@ export function Navigation() {
       </nav>
 
       {mobileMenuOpen && (
-        <div className="md:hidden border-t bg-background/95 backdrop-blur">
-          <ul className="flex flex-col py-4 px-6 gap-4">
+        <div className="md:hidden mt-2 border-4 border-foreground bg-background/95 backdrop-blur">
+          <ul className="flex flex-col">
             {navItems.map((item) => (
-              <li key={item.href}>
+              <li key={item.href} className="border-b-2 border-foreground last:border-b-0">
                 <Link
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={cn(
-                    "block text-base font-medium transition-colors hover:text-primary py-2",
-                    pathname === item.href ? "text-foreground" : "text-muted-foreground",
+                    "block px-6 py-4 text-base font-bold uppercase transition-colors hover:bg-primary",
+                    pathname === item.href ? "bg-foreground text-background" : "text-foreground",
                   )}
                 >
                   {item.label}
